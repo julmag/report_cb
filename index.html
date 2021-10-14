@@ -56,7 +56,7 @@ SOFTWARE.
   <title>Forward models in the cerebellum</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="assets/github.css">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -67,7 +67,7 @@ SOFTWARE.
 <h1 class="title">Forward models in the cerebellum</h1>
 <p class="author">Julian Thukral, Julien Vitay and Fred Hamker</p>
 </header>
-<p>The cerebellum is thought to be able to learn forward models, which allow to predict the sensory consequences of planned movements and adapt behavior accordingly. Although classically considered as a feedforward structure learning in a supervised manner, recent proposals highlighted the importance of the internal recurrent connectivity of the cerebellum to produce rich dynamics, as well as the importance of reinforcement-like mechanisms for its plasticity. Based on these models, we propose a neuro-computational model of the cerebellum using an inhibitory reservoir architecture and biologically plausible learning mechanisms based on perturbation learning. The model is trained to predict the position of a simple robotic arm after ballistic movements. Understanding how the cerebellum is able to learn forward models might allow elucidating the biological basis of model-based reinforcement learning.</p>
+<p>The cerebellum is thought to be able to learn forward models, which allow to predict the sensory consequences of planned movements and adapt behavior accordingly. Although classically considered as a feedforward structure learning in a supervised manner, recent proposals highlighted the importance of the internal recurrent connectivity of the cerebellum to produce rich dynamics, as well as the importance of reinforcement-like mechanisms for its plasticity. Based on these models, we propose a neuro-computational model of the cerebellum using an inhibitory reservoir architecture and biologically plausible learning mechanisms based on perturbation learning. The model is trained to predict the position of a simple robotic arm after ballistic movements. Understanding how the cerebellum is able to learn forward models might allow elucidating the biological basis of model-based reinforcement learning. Blabla</p>
 <h2 id="model">Model</h2>
 <p>Equations:</p>
 <p><span class="math display">\[
@@ -76,9 +76,9 @@ p_i(t) = \Bigg[\sum_j^{N_z} &amp; D_{ij}\, m_{ij}\, \sum_{s=1}^t \exp\bigg({-\fr
 + &amp; \sum_j^{N_i} H_{ij}\, w_{IO}\, \sum_{s=1}^t \exp\bigg({-\frac{t-s}{\tau_\text{IO}}}\bigg) \, l_j(s-1)\Bigg]^+ \\
 \end{aligned}
 \]</span></p>
-<p>Figures:</p>
+<h2 id="figures">Figures:</h2>
 <figure>
-<img src="img/model.svg" style="width:80.0%" alt="Figure 1: Structure of the model." /><figcaption aria-hidden="true"><strong>Figure 1:</strong> Structure of the model.</figcaption>
+<img src="img/model.svg" alt="Figure 1: Structure of the model." style="width:80.0%" /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
 </figure>
 <p>Videos from Youtube:</p>
 <div class="embed-container">
@@ -92,6 +92,11 @@ p_i(t) = \Bigg[\sum_j^{N_z} &amp; D_{ij}\, m_{ij}\, \sum_{s=1}^t \exp\bigg({-\fr
 </div>
 <h2 id="tasks">Tasks</h2>
 <h2 id="results">Results</h2>
+<p>Videos</p>
+<div class="embed-container">
+<iframe src="./videos/training_circle_20-99999.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
 </article>
 </body>
 </html>
