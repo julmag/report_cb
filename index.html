@@ -1,5 +1,52 @@
 <!DOCTYPE html>
+<!--
+==============================================================================
+           "GitHub HTML5 Pandoc Template" v2.1 — by Tristano Ajmone           
+==============================================================================
+Copyright © Tristano Ajmone, 2017, MIT License (MIT). Project's home:
 
+- https://github.com/tajmone/pandoc-goodies
+
+The CSS in this template reuses source code taken from the following projects:
+
+- GitHub Markdown CSS: Copyright © Sindre Sorhus, MIT License (MIT):
+  https://github.com/sindresorhus/github-markdown-css
+
+- Primer CSS: Copyright © 2016-2017 GitHub Inc., MIT License (MIT):
+  http://primercss.io/
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The MIT License 
+
+Copyright (c) Tristano Ajmone, 2017 (github.com/tajmone/pandoc-goodies)
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+Copyright (c) 2017 GitHub Inc.
+
+"GitHub Pandoc HTML5 Template" is Copyright (c) Tristano Ajmone, 2017, released
+under the MIT License (MIT); it contains readaptations of substantial portions
+of the following third party softwares:
+
+(1) "GitHub Markdown CSS", Copyright (c) Sindre Sorhus, MIT License (MIT).
+(2) "Primer CSS", Copyright (c) 2016 GitHub Inc., MIT License (MIT).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+==============================================================================-->
 <html>
 <head>
   <meta charset="utf-8" />
@@ -20,34 +67,7 @@
 <h1 class="title">Forward models in the cerebellum</h1>
 <p class="author">Julian Thukral, Julien Vitay and Fred Hamker</p>
 </header>
-<p>
-
-  <figure>
-    <img src="img/cb_model.png" alt="Figure 1: Structure of the model." style="width:80.0%" /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
-    </figure>
-
-  The presented model is a reservoir computing model structurally inspired by the human cerebellum. Input (mossy fibres) is fed into a reservoir and the output cells (projection neurons). A general hebbian learning layer is used as an intermediary to decorrelate the input information before it is fed into the reservoir. The reservoir excites the purkinje cells which in turn inhibit the projection neurons.
-
-  The model is trained to predict the next position of the hand of a 2d arm in circular motion. The base of the arm is situated at the coordinate origin. 
-  
-  Training is done with 100.000 Circles. Each differentiating in the center of the circle, the radius, and the starting position of the hand in the circle. 
-  
-  
-  Input given to the model consisted of the following:
-  Current position of the hand. Given as x, y coordinates. 
-  The movement command. Given as the delta of the current and next position of the angle of the shoulder and elbow joints.
-  The last movement. Given as the delta of the last hand position and the current hand position. (Δx and Δy)
-  
-  The input was based on a calculated target circle, not on the last predictions of the model. In short the input fed to the model were for example the x,y-coordinates where the hand should be if the movement was done without any error. 
-  
-  Output of the model consists of the x,y coordinates of the predicted position of the hand given the input information. 
-  
-  The error is calculated as the normalized mean squared error of the delta between target (calculated next position of the hand) and prediction of the model.
-  
-  Learning only happens between the reservoir and the purkinje cell layer. Weights are adjusted  with a modified delta learning algorithm:
-  
-  w = w + 𝜼 * (pre.r * error - c*w)	
-  </p>
+<p>The cerebellum is thought to be able to learn forward models, which allow to predict the sensory consequences of planned movements and adapt behavior accordingly. Although classically considered as a feedforward structure learning in a supervised manner, recent proposals highlighted the importance of the internal recurrent connectivity of the cerebellum to produce rich dynamics, as well as the importance of reinforcement-like mechanisms for its plasticity. Based on these models, we propose a neuro-computational model of the cerebellum using an inhibitory reservoir architecture and biologically plausible learning mechanisms based on perturbation learning. The model is trained to predict the position of a simple robotic arm after ballistic movements. Understanding how the cerebellum is able to learn forward models might allow elucidating the biological basis of model-based reinforcement learning. Blabla</p>
 <h2 id="model">Model</h2>
 <p>Equations:</p>
 <p><span class="math display">\[
