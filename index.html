@@ -52,7 +52,8 @@ SOFTWARE.
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>articel_mod</title>
+  <meta name="author" content="Julian Thukral, Julien Vitay and Fred Hamker" />
+  <title>Forward models in the cerebellum</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="assets/github.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
@@ -62,6 +63,10 @@ SOFTWARE.
 </head>
 <body>
 <article class="markdown-body">
+<header>
+<h1 class="title">Forward models in the cerebellum</h1>
+<p class="author">Julian Thukral, Julien Vitay and Fred Hamker</p>
+</header>
 <h1 id="model">Model</h1>
 <p>The current network is a reservoir computing model structurally inspired by the human cerebellum. Input (mossy fibers) is fed through a intermediary layer into a reservoir and the output cells (projection neurons). A general hebbian algorithm layer is used as the intermediary to decorrelate the input information before it is redirected to the reservoir. The reservoir is read out by a feedforward layer the purkinje cells which in turn inhibit the projection neurons (dentate nucleus neurons). Synaptic weights are only adjusted between the reservoir and the purkinje cell layer. The projection neurons fire rate functions as the model output on which basis the error is calculated. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.</p>
 <figure>
@@ -91,8 +96,9 @@ r(t) = tanh(x(t))
 <ul>
 <li>the current position of the effector (x<sub>t</sub>, y<sub>t</sub>)<sub>vd</sub> was taken from the visual display and not from the target circle or the prediction of them model of the previous step.</li>
 <li>ΔӨ<sub>elbow</sub> and ΔӨ<sub>shoulder</sub> were calculated for the movement from (x<sub>t</sub>, y<sub>t</sub>)<sub>vd</sub> to the target on the target circle for current step</li>
-<li>Δx and Δy were based on the last movement by the visual display (Δx = (x<sub>t</sub> - x<sub>t-1</sub>)<sub>vd</sub> ; Δy = (y<sub>t</sub> - y<sub>t-1</sub>)<sub>vd</sub> )</li>
+<li><span class="math inline">\(\Delta x\)</span> and Δy were based on the last movement by the visual display (Δx = (x<sub>t</sub> - x<sub>t-1</sub>)<sub>vd</sub> ; Δy = (y<sub>t</sub> - y<sub>t-1</sub>)<sub>vd</sub> )</li>
 </ul>
+<p><span class="math inline">\(\tau\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 p_i(t) = \Bigg[\sum_j^{N_z} &amp; D_{ij}\, m_{ij}\, \sum_{s=1}^t \exp\bigg({-\frac{t-s}{\tau_m}}\bigg)\, z_j(s-1) \\

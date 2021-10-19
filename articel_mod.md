@@ -1,3 +1,9 @@
+---
+title: Forward models in the cerebellum
+author: Julian Thukral, Julien Vitay and Fred Hamker
+---
+
+
 # Model
 
 
@@ -63,7 +69,7 @@ This visual display was fed as input into the model. i.e.:
 
 * the current position of the effector (x<sub>t</sub>, y<sub>t</sub>)<sub>vd</sub> was taken from the visual display and not from the target circle or the prediction of them model of the 	 previous step.
 * ΔӨ<sub>elbow</sub> and ΔӨ<sub>shoulder</sub> were calculated for the movement from (x<sub>t</sub>, y<sub>t</sub>)<sub>vd</sub> to the target on the target circle for current step
-* Δx and Δy were based on the last movement by the visual display (Δx = (x<sub>t</sub> - x<sub>t-1</sub>)<sub>vd</sub> ; Δy = (y<sub>t</sub> - y<sub>t-1</sub>)<sub>vd</sub> )
+* $\Delta x$ and Δy were based on the last movement by the visual display (Δx = (x<sub>t</sub> - x<sub>t-1</sub>)<sub>vd</sub> ; Δy = (y<sub>t</sub> - y<sub>t-1</sub>)<sub>vd</sub> )
 
 
 
@@ -72,7 +78,7 @@ This visual display was fed as input into the model. i.e.:
 
 
 
-
+$\tau$
 
 
 
