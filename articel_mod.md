@@ -86,11 +86,6 @@ As can be seen in figures 2 to 4 MSE decreases rapidly during training.
 ![**Figure 2:** Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.](img/training_plots/training_Circle_0-100.png){width=40%}
 
 
-![**Figure 3:** Training MSE of the first 1000 Training Circles. MSE Circle 1000 = 0.1273.](img/training_plots/training_Circle_0-1000.png){width=40%}
-
-![**Figure 4:** Training MSE. MSE Circle 10000 = 0.0042.](img/training_plots/training_Circles_MSE_rm1.png){width=40%}
-
-
 Video 1 illustrates how the model performance progresses through training. 
 
 <div class='embed-container'><iframe src='./videos/training/training_circles_0-99999.mp4' frameborder='0' allowfullscreen></iframe></div>
