@@ -98,42 +98,30 @@ Video 1 illustrates how the model performance progresses through training.
 
 ### Test
 
-Below are examplary videos of a test run. For each control level 5 circles were run. The videos show the visual display and the movement of the model agency condition. The control level and the mse for the circle are displayed in the title. 
+Below are examplary videos of a test run. For each control level 5 circles were run. The videos show the visual display and the movement of the model agency condition at cl 0.2, 0.5 and 0.7. The control level and the mse for the circle are displayed in the title. 
 
 
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.mp4' frameborder='0' allowfullscreen></iframe></div>
-
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.1.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
 <div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.3.mp4' frameborder='0' allowfullscreen></iframe></div>
-
-
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.4.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
 <div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.6.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
 <div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.8.mp4' frameborder='0' allowfullscreen></iframe></div>
 
 
-<div class='embed-container'><iframe src='./videos/test_only_ac_to_vd/test_video_cl_0.9.mp4' frameborder='0' allowfullscreen></iframe></div>
+As can be seen the mse raises with a loss of control. With the steepest incline between cl=0.6 and cl=0.4 before slowing down the incline in lower control levels.  
 
 
-As can be seen the mse raises with a loss of control. 
-
-
-
+![**Figure 5:** Test MSE of Model AC to VD](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){width=80%}
 
 
 
