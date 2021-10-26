@@ -121,7 +121,7 @@ Below are examplary videos of a test run. For each control level 5 circles were 
 As can be seen the mse raises with a loss of control. With the steepest incline between cl=0.6 and cl=0.4 before slowing down the incline in lower control levels.  
 
 
-![**Figure 5:** Test MSE of Model AC to VD](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){width=80%}
+![**Figure 5:** Test MSE of Model Agency condition to Visual Display](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){width=40%}
 
 
 
