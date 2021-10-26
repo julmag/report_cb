@@ -152,33 +152,6 @@ As can be seen the mse raises with a loss of control. With the steepest incline 
 
 
 
-\
-\
-
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-
-
-
-
-
-
-$$
-\begin{aligned}
-p_i(t) = \Bigg[\sum_j^{N_z} & D_{ij}\, m_{ij}\, \sum_{s=1}^t \exp\bigg({-\frac{t-s}{\tau_m}}\bigg)\, z_j(s-1) \\
-+ & \sum_j^{N_i} H_{ij}\, w_{IO}\, \sum_{s=1}^t \exp\bigg({-\frac{t-s}{\tau_\text{IO}}}\bigg) \, l_j(s-1)\Bigg]^+ \\
-\end{aligned}
-$$
-
-## Figures:
 
 
 
@@ -190,50 +163,3 @@ $$
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Videos from Youtube:
-
-<div class='embed-container'><iframe src='https://www.youtube.com/embed/qhUvQiKec2U' frameborder='0' allowfullscreen></iframe></div>
-
-Local videos:
-
-<div class='embed-container'><iframe src='./videos/cover.mp4' frameborder='0' allowfullscreen></iframe></div>
-
-## Tasks
-
-## Results
- Videos
-
-<div class='embed-container'><iframe src='./videos/training_circle_20-99999.mp4' frameborder='0' allowfullscreen></iframe></div>
-
-![**Figure 1:** Structure of the model.](img/model.svg){width=80%}
