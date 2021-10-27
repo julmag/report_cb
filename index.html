@@ -56,7 +56,7 @@ SOFTWARE.
   <title>Forward models in the cerebellum</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="assets/github.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -67,39 +67,43 @@ SOFTWARE.
 <h1 class="title">Forward models in the cerebellum</h1>
 <p class="author">Julian Thukral, Julien Vitay and Fred Hamker</p>
 </header>
-<h1 id="model">Model</h1>
-<p>The current network is a reservoir computing model structurally inspired by the human cerebellum. Input (mossy fibers) is fed through a intermediary layer into a reservoir and the output cells (projection neurons). A general hebbian algorithm layer is used as the intermediary to decorrelate the input information before it is redirected to the reservoir. The reservoir is read out by a feedforward layer the purkinje cells which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the purkinje cell layer. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.<br />
-<br />
-<br />
-<br />
-</p>
+<p>TODO: small abstract presenting the main idea (why forward models, cerebellum, etc) before jumping into the model.</p>
+<h2 id="description-of-the-model">Description of the model</h2>
+<p>The current network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via mossy fibers and to the output cells (projection neurons). A General Hebbian Algorithm (GHA) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir.</p>
+<p>The reservoir consists of</p>
+<p>The reservoir is read out by a layer of Purkinje cells which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the Purkinje cell layer. The layers of the Purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.</p>
 <figure>
-<img src="img/cb_model.png" alt="Figure 1: Structure of the model." style="width:80.0%" /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
+<img src="img/cb_model.png" style="width:80.0%" alt="Figure 1: Structure of the model." /><figcaption aria-hidden="true"><strong>Figure 1:</strong> Structure of the model.</figcaption>
 </figure>
-<p><br />
-<br />
-<br />
-The model is trained to predict the next position of the hand of a 2d arm ((<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>)) based on the current position ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>)) and a movement command in form of the <span class="math inline">\(\Delta\)</span> of the joint angles (<span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> ). The base of the arm is situated at the coordinate origin. Additionally the input contains the information about the <span class="math inline">\(\Delta\)</span> of the last step to the current step i.e. (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>).</p>
-<p>Furthermore the input was based on the target circle and not on the predictions of the model i.e. the current position of the hand at timestep <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not of the model prediciton of timestep <span class="math inline">\(t\)</span>. Thus <span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> was calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
+<p>The model is trained to predict the next position of the hand of a 2d arm ((<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>)) based on the current position ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>)) and a movement command in form of the <span class="math inline">\(\Delta\)</span> of the joint angles (<span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> ). The base of the arm is situated at the coordinate origin. Additionally the input contains the information about the <span class="math inline">\(\Delta\)</span> of the last step to the current step i.e. (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>).</p>
+<figure>
+<img src="img/arm.png" style="width:50.0%" alt="Figure 2: 2D arm model. Source: doi:10.1109/IRIS.2017.8250090" /><figcaption aria-hidden="true"><strong>Figure 2:</strong> 2D arm model. Source: doi:10.1109/IRIS.2017.8250090</figcaption>
+</figure>
+<p>Furthermore the input was based on the target circle and not on the predictions of the model i.e. the current position of the hand at timestep <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not of the model prediciton of timestep <span class="math inline">\(t\)</span>. Thus <span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> was calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
 <p>The error was calculated as normalized MSE based on the difference of the predicted (<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>) and (<span class="math inline">\(x_{target}\)</span>, <span class="math inline">\(y_{target}\)</span>).</p>
 <p>Training was done with 100.000 Circles, with 8 predictions/steps each. Each circle differentiated in the center of the circle, the radius, and the starting position of the hand in the circle. The degrees determining the movement per timestep was constant at 43 degrees each step. Thus each circle needed 8 steps for one complete circumnavigation.</p>
-<h1 id="equations">Equations:</h1>
-<p>Learning only happened in the synapses between the reservoir and the purkinje cell layer. Weights are adjusted with a modified delta learning algorithm:</p>
-<p><span class="math display">\[
-\begin{aligned}\Delta_{ij} =  \eta * (r_{i} * error_{j} - c*w_{ij)}) \\\end{aligned}
-\]</span></p>
-<p>The learning rate was set to <span class="math inline">\(\eta = 0.005\)</span> . A cost parameter was added and set to <span class="math inline">\(c = 0.001\)</span>.</p>
-<p>Fire rate of the the purkinje cell layer is not dynamic and described by <span class="math display">\[
+<h2 id="equations">Equations</h2>
+<h3 id="neurons">Neurons</h3>
+<p>Fire rate of the the Purkinje cell layer is not dynamic and described by <span class="math display">\[
 \begin{aligned}r_{j} = \sum^i w_{ij}* r_i \\\end{aligned}
 \]</span></p>
-<p>Reservoir Neurons follow first-order ODEs: <span class="math display">\[
-\tau + \frac {dx(t)}{dt} + x(t)= \sum w^{in} * r^{in}(t)+g
+<p>Reservoir neurons follow first-order ODEs:</p>
+<p><span class="math display">\[
+    \tau + \frac {dx(t)}{dt} + x(t)= \sum w^{in} \, r^{in}(t)+g
 \]</span></p>
 <p>with <span class="math inline">\(\tau = 10\)</span> and <span class="math inline">\(g = 1\)</span> .</p>
-<p>Fire rate of the reservoir neurons was defined as : <span class="math display">\[
-r(t) = tanh(x(t))
+<p>The firing rate of the reservoir neurons was defined as :</p>
+<p><span class="math display">\[
+    r(t) = tanh(x(t))
 \]</span></p>
-<h2 id="task">Task</h2>
+<h3 id="synapses">Synapses</h3>
+<p><strong>TODO:</strong> GHA</p>
+<p>Learning only happened in the synapses between the reservoir and the Purkinje cell layer. Weights are adjusted with a modified delta learning algorithm:</p>
+<p><span class="math display">\[
+\begin{aligned}\Delta_{ij} =  \eta * (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
+\]</span></p>
+<p>The learning rate was set to <span class="math inline">\(\eta = 0.005\)</span> . A cost parameter was added and set to <span class="math inline">\(c = 0.001\)</span>.</p>
+<h2 id="random-dot-task">Random Dot Task</h2>
 <p>In the random dot task, the movement of the dot displayed on the monitor consisted of the movement of the test subject and added noise. The ratio was specified by the control level, which defined the percentage of control a test subject had ofter the movement of the dot. To simulate a similar task for the model a visual display circle was calculated. It was based on the a target circle with added noise. The noise added was take from the same noise array as in the dot task. An array with prerecoreded pseudorandom movements. Each step a random movement of the array was taken, normalized and added to the movement of the target circle. The control level specified the percentage of the movement done by noise or true movement.</p>
 <p>This visual display was fed as input into the model. i.e.:</p>
 <ul>
@@ -108,37 +112,35 @@ r(t) = tanh(x(t))
 <li><span class="math inline">\(\Delta x\)</span> and <span class="math inline">\(\Delta y\)</span> were based on the last movement by the visual display (<span class="math inline">\(\Delta x = (x_t - x_{t-1})_{vd}\)</span> ; <span class="math inline">\(\Delta y = (y_t - y_{t-1})_{vd}\)</span> )</li>
 </ul>
 <p>The condition in which the model is fed with the visual display will be called model agency condition. The error for each circle was calculated as mean square error.</p>
-<p>Testing was conducted 1000 times. Starting with control level 0 and incrementing it by +0.001 each testing run. Each test consistet of 20 circles. Circles where build as in training, differentiating in radius, circle center and starting position on the circle.<br />
-<br />
- </p>
+<p>Testing was conducted 1000 times. Starting with control level 0 and incrementing it by +0.001 each testing run. Each test consistet of 20 circles. Circles where build as in training, differentiating in radius, circle center and starting position on the circle.</p>
 <h2 id="results">Results</h2>
 <h3 id="training">Training</h3>
 <p>As can be seen in figures 2 to 4 MSE decreases rapidly during training.</p>
 <figure>
-<img src="img/training_plots/training_Circle_0-100.png" alt="Figure 2: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." style="width:40.0%" /><figcaption><strong>Figure 2:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
+<img src="img/training_plots/training_Circle_0-100.png" style="width: 60%; margin: auto;" alt="Figure 2: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." /><figcaption aria-hidden="true"><strong>Figure 2:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
 </figure>
 <p>Video 1 illustrates how the model performance progresses through training.</p>
-<div class="embed-container">
-<iframe src="./videos/training/training_circles_0-99999.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
+<video controls width=60%>
+<source src="./videos/training/training_circles_0-99999.mp4"
+            type="video/mp4">
+</video>
 <h3 id="test">Test</h3>
 <p>Below are examplary videos of a test run. For each control level 5 circles were run. The videos show the visual display and the movement of the model agency condition at cl 0.2, 0.5 and 0.7. The control level and the mse for the circle are displayed in the title.</p>
-<div class="embed-container">
-<iframe src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<div class="embed-container">
-<iframe src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<div class="embed-container">
-<iframe src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
+<video controls width=60%>
+<source src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4"
+            type="video/mp4">
+</video>
+<video controls width=60%>
+<source src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4"
+            type="video/mp4">
+</video>
+<video controls width=60%>
+<source src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4"
+            type="video/mp4">
+</video>
 <p>As can be seen the mse raises with a loss of control. With the steepest incline between cl=0.6 and cl=0.4 before slowing down the incline in lower control levels.</p>
 <figure>
-<img src="img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png" alt="Figure 5: Test MSE of Model Agency condition to Visual Display" style="width:40.0%" /><figcaption><strong>Figure 5:</strong> Test MSE of Model Agency condition to Visual Display</figcaption>
+<img src="img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png" style="width: 70%; margin: auto;" alt="Figure 3: Test MSE of Model Agency condition to Visual Display" /><figcaption aria-hidden="true"><strong>Figure 3:</strong> Test MSE of Model Agency condition to Visual Display</figcaption>
 </figure>
 </article>
 </body>
