@@ -15,13 +15,13 @@ The reservoir consists of randomly and recurrently connected neurons. It emulate
 
 The activity of the reservoir is read out by a layer of purkinje cells, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the purkinje cell layer. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.  
 
-![**Figure 1:** Structure of the model.](img/cb_model.png){width=600%}
+![**Figure 1:** Structure of the model.](img/cb_model.png){width=40%}
 
 
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)) and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e.  ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$). 
 
 
-![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=60%}
+![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=40%}
 
 
 
@@ -31,7 +31,7 @@ The error is calculated as a normalized mean-square error (MSE) based on the dif
 
 Training is done using 100.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation. 
 
-![**Figure 3:** The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.](img/training_plots/input_explanation.png){width=25%}
+![**Figure 3:** The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.](img/training_plots/input_explanation.png){width=40%}
 
 
 
@@ -136,7 +136,7 @@ Testing was conducted with 1000 trials without learning, starting with control l
 
 As can be seen in Fig. 2, the training MSE decreases rapidly during training, showing that learning the forward model of the arm is successful. 
 
-![**Figure 2:** Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.](img/training_plots/training_Circle_0-100.png){ style="width: 60%; margin: auto;" }
+![**Figure 2:** Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.](img/training_plots/training_Circle_0-100.png){ style="width: 40%; margin: auto;" }
 
 
 The following video illustrates how the model performance progresses through training. **TODO: give more explanations on what should be observed.**
@@ -183,7 +183,7 @@ Below are examplary videos of a test run. For each control level, 5 circles were
 Fig. 3 shows the influence of the control level on the prediction error (i.e. the MSE of the test circles raw values above, moving average below). As expected, the MSE increases as the control level decreases, signalling the discrepancy between the forward model predicting position and the noisy visual feedback. The sigmoidal shape of that relationship can be considered as a prediction of the model and confirmed experimentally.
 
 
-![**Figure 3:** Test MSE of Model Agency condition to Visual Display](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){ style="width: 70%; margin: auto;" }
+![**Figure 3:** Test MSE of Model Agency condition to Visual Display](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){ style="width: 40%; margin: auto;" }
 
 
 
