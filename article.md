@@ -9,19 +9,19 @@ author: Julian Thukral, Julien Vitay and Fred Hamker
 
 ## Description of the model
 
-The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via mossy fibers and to the output cells (projection neurons). A General Hebbian Algorithm (GHA) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
+The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via mossy fibers and to the output cells (projection neurons). A general hebbian algorithm (gha) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
 
 The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between granule cells (excitatory) and golgi cells (inhibitory), wich is able to exhibit strong non-linear dynamics.
 
 The activity of the reservoir is read out by a layer of purkinje cells, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the purkinje cell layer. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.  
 
-![**Figure 1:** Structure of the model.](img/cb_model.png){width=80%}
+![**Figure 1:** Structure of the model.](img/cb_model.png){width=600%}
 
 
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)) and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e.  ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$). 
 
 
-![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=25%}
+![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=60%}
 
 
 
