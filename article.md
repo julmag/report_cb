@@ -11,9 +11,9 @@ author: Julian Thukral, Julien Vitay and Fred Hamker
 
 The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via mossy fibers and to the output cells (projection neurons). A General Hebbian Algorithm (GHA) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
 
-The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between granule cells (excitatory) and Golgi cells (inhibitory) that is able to exhibit strong non-linear dynamics.
+The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between granule cells (excitatory) and golgi cells (inhibitory), wich is able to exhibit strong non-linear dynamics.
 
-The activity of the reservoir is read out by a layer of Purkinje cells which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the Purkinje cell layer. The layers of the Purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.  
+The activity of the reservoir is read out by a layer of purkinje cells, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the purkinje cell layer. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.  
 
 ![**Figure 1:** Structure of the model.](img/cb_model.png){width=80%}
 
@@ -21,7 +21,7 @@ The activity of the reservoir is read out by a layer of Purkinje cells which in 
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)) and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e.  ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$). 
 
 
-![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=50%}
+![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=25%}
 
 
 
@@ -29,9 +29,10 @@ The visual inputs correspond to positions on the target circle and not to predic
 
 The error is calculated as a normalized mean-square error (MSE) based on the difference between the predicted position ($x_{t+1}$, $y_{t+1}$) and the target ($x_{target}$, $y_{target}$). 
 
-Training is done using 100.000 circles, with 8 predictions/steps each. Each circle differentiate in the center of the circle, the radius, and the starting position of the hand in the circle. The degrees determining the movement per timestep was constant at 43 degrees each step (constant angular speed). Thus each circle needed 8 steps for one complete circumnavigation. 
+Training is done using 100.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation. 
 
-**TODO: figure showing the circles, x_t, x_t+1, etc**
+![**Figure 3:** The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.](img/training_plots/input_explanation.png){width=25%}
+
 
 
 ## Equations
@@ -40,11 +41,23 @@ Training is done using 100.000 circles, with 8 predictions/steps each. Each circ
 
 **TODO:** Make sentences and include all important equations.
 
-The firing rate of the the Purkinje cell layer is not dynamic and described by:
+
+The firerate of the input neurons was set to the desired input. There were six input neurons representing each of the six different input (x,y, $\Delta\Theta_{elbow}$, $\Delta\Theta_{shoulder}$, $\Delta x$, $\Delta y$).
+
+\
+\
+
+The neurons of the gha layer can be cescribed with the following equation:
 
 $$
 \begin{aligned}r_{j} = \sum^i w_{ij}* r_i \\\end{aligned}
 $$
+
+where $w_{ij}$ represents the general hebbian algorithm pre-trained weights between input layer and gha layer and $r_i$ is given the connected input neuron.  
+
+
+\
+\
 
 
 The reservoir neurons follow a first-order ODEs:
@@ -53,15 +66,36 @@ $$
     \tau + \frac {dx(t)}{dt} + x(t)= \sum w^{in} \, r^{in}(t)+g
 $$
 
-with $\tau = 10$ and $g = 1$ .
+$\tau = 10$ meant the dynamics in the reservoir are relativly quick and the scaling factor $g = 1$ characterizes the strentgh of the recurrent connections in the reservoir at the edge of chaos, a base prequesite for an Echo State Reservoir. The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firerrate of the gha pre-neuron. \
+The activation function of the reservoir neurons was given as: 
 
-The firing rate of the reservoir neurons was defined as :
+$$ 
+r = tanh(x(t))
+$$
+
+
+
+\
+
+
+The firing rate of the the Purkinje cell layer is not dynamic and described by:
 
 $$
-    r(t) = tanh(x(t))
+\begin{aligned}r_{j} = \sum^i w_{ij}* r_i \\\end{aligned}
+$$
+The weights were initialized according to a normal distribution ($m = 0$ and $\sigma = 0.1$) and updated each step using the learning rule. 
+
+The firerate of the Inferior olive neurons wich feed the error feedback to the Purkinje Cells is calculated and set in python each step. 
+
+\
+\
+The projection neurons are defined by the similar equation as the prukinje cells:
+$$
+\begin{aligned}r_{j} = \sum^i w^{in}_{ij}* I_i  - \sum^i w^{purk}_{ij}* r_i \\\end{aligned}
 $$
 
-TODO PN
+The projection neurons recieve a copy of the input from the mossy fibres and input from the purkinjie cells. $w^{in}_{ij}$ and $w^{purk}_{ij}$ are set to $1$. The firerate of the projection neurons equals the copy of the mossy fibre input minus the purkinjie firerate. Hence the purkinjie cells don't learn to predict the new coordinates of the hand of the arm but the movement between the old coordinates and the new. 
+
 
 ### Synapses
 
@@ -70,7 +104,7 @@ TODO PN
 Learning only happened in the synapses between the reservoir and the Purkinje cell layer. Weights are adjusted with a modified delta learning algorithm:
 
 $$
-\begin{aligned}\Delta_{ij} =  \eta * (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
+\begin{aligned}\Delta w_{ij} =  \eta * (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
 $$
 
 where ...
