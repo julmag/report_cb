@@ -5,6 +5,14 @@ author: Julian Thukral, Julien Vitay and Fred Hamker
 
 **TODO:** small abstract presenting the main idea (why forward models, cerebellum, etc) before jumping into the model.
 
+For a human body to move accuratly, movement control solely based on sensory feedback would be too slow. The body would control the movement based on where it was and not where it is, resulting in movements that for example overshooting the target. It is believed that movement control is based on internal models predicting the future state of the body (or rather the future sensory feedback). The two internal models of motor control are the inverse model, which issues a motor command given the current state and the desired state of the body and the forward model which predicts the future state of the body given the current state and an efference copy of said motor command. The comparison between the predicted and the obtained state results in the prediction error, which again is used in motor control, motor learning and as a key component in generating a Sense of Agency. 
+The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually we don’t question if we are the agent of our own actions, it only comes into focus by the element of surprise when there is an incongruence of intention and action outcome. 
+The cerebellum is thought to be the locus of the forward model. Acting not only as predictor of movements but also as the comparator between obtained and desired/predicted state. In this work we have built a neural forward model based on the architecture of the cerebellum. The model is trained to predict the future position of the hand of a 2D planar arm going in a circular motion.  
+Furthermore we tested the capabilities of the model with an experiment based on the Random Dot Task.
+ 
+
+
+
 # Methods
 
 ## Description of the model
@@ -101,15 +109,21 @@ The projection neurons recieve a copy of the input from the mossy fibres and inp
 
 **TODO:** GHA
 
-Learning only happened in the synapses between the reservoir and the Purkinje cell layer. Weights are adjusted with a modified delta learning algorithm:
+Learning only happened in the synapses between the reservoir and the Purkinje cell layer and at the gha layer. 
+
+The gha layer 
+
+Weights are adjusted with a modified delta learning algorithm:
 
 $$
 \begin{aligned}\Delta w_{ij} =  \eta * (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
 $$
 
-where ...
 
 The learning rate was set to $\eta = 0.005$ . A cost parameter was added and set to $c = 0.001$. 
+Each step in the circle the error, $e_j$,  was calculated in python as target - model_prediction. And fed into the prukinje cell layer via the inferior olive cells. 
+
+
 
 
 ## Random dot task 
