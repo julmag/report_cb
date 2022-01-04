@@ -26,13 +26,13 @@ The reservoir consists of randomly and recurrently connected neurons. It emulate
 
 The activity of the reservoir is read out by a layer of purkinje cells, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons fire rate functions as the model output on which basis the error is calculated. Based on the error feedback from the inferior olive cells synaptic weights are adjusted between the reservoir and the purkinje cell layer. The layers of the purkinje cells, inferior olive cells and the projection neurons consist of each one neuron for the x and y coordinate.  
 
-![**Figure 1:** Structure of the model.](img/cb_model.png){width=60%}{align="center"}
+![**Figure 1:** Structure of the model.](img/cb_model.png){width=100%}{align="center"}
 
 
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)) and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e.  ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$). 
 
 
-![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=60%}{align="center"}
+![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=40%}{align="center"}
 
 
 
@@ -42,7 +42,7 @@ The error is calculated as a normalized mean-square error (MSE) based on the dif
 
 Training is done using 100.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation. 
 
-![**Figure 3:** The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.](img/training_plots/input_explanation.png){width=40%}
+![**Figure 3:** The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.](img/training_plots/input_explanation.png){width=50%}
 
 
 
