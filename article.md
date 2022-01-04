@@ -10,6 +10,9 @@ The Sense of Agency describes the experience of controlling our own actions and 
 The cerebellum is thought to be the locus of the forward model. Acting not only as predictor of movements but also as the comparator between obtained and desired/predicted state. In this work we have built a neural forward model based on the architecture of the cerebellum. The model is trained to predict the future position of the hand of a 2D planar arm going in a circular motion.  
 Furthermore we tested the capabilities of the model with an experiment based on the Random Dot Task.
  
+\
+\
+\
 
 
 
@@ -58,7 +61,7 @@ The firerate of the input neurons was set to the desired input. There were six i
 The neurons of the gha layer can be cescribed with the following equation:
 
 $$
-\begin{aligned}r_{j} = \sum^i w_{ij}* r_i \\\end{aligned}
+\begin{aligned}r_{j} = \sum^i w_{ij}\, r_i \\\end{aligned}
 $$
 
 where $w_{ij}$ represents the general hebbian algorithm pre-trained weights between input layer and gha layer and $r_i$ is given the connected input neuron.  
@@ -89,7 +92,7 @@ $$
 The firing rate of the the Purkinje cell layer is not dynamic and described by:
 
 $$
-\begin{aligned}r_{j} = \sum^i w_{ij}* r_i \\\end{aligned}
+\begin{aligned}r_{j} = \sum^i w_{ij}\, r_i \\\end{aligned}
 $$
 The weights were initialized according to a normal distribution ($m = 0$ and $\sigma = 0.1$) and updated each step using the learning rule. 
 
@@ -99,7 +102,7 @@ The firerate of the Inferior olive neurons wich feed the error feedback to the P
 \
 The projection neurons are defined by the similar equation as the prukinje cells:
 $$
-\begin{aligned}r_{j} = \sum^i w^{in}_{ij}* I_i  - \sum^i w^{purk}_{ij}* r_i \\\end{aligned}
+\begin{aligned}r_{j} = \sum^i w^{in}_{ij}\, I_i  - \sum^i w^{purk}_{ij}\, r_i \\\end{aligned}
 $$
 
 The projection neurons recieve a copy of the input from the mossy fibres and input from the purkinjie cells. $w^{in}_{ij}$ and $w^{purk}_{ij}$ are set to $1$. The firerate of the projection neurons equals the copy of the mossy fibre input minus the purkinjie firerate. Hence the purkinjie cells don't learn to predict the new coordinates of the hand of the arm but the movement between the old coordinates and the new. 
@@ -109,6 +112,19 @@ The projection neurons recieve a copy of the input from the mossy fibres and inp
 
 **TODO:** GHA
 
+
+Sanger's rule aka Generalized Hebbian Algorithm
+$$
+\begin{aligned}\Delta w_{ij} =  \eta \, \bigg(y_i \, x_j - y_i \sum_{k=1}^i w_{kj} \, y_k\bigg)\\\end{aligned}
+$$
+
+Same rule in Matrix form. 
+
+$$
+\begin{aligned}\Delta w_{(t)} =  \eta_{(t)} \, \bigg(y_{(t)} \, x_{(t)}^T - LT[y_{(t)} \, y_{(t)}^T] \, w_{(t)}\bigg) \\\end{aligned}
+$$
+
+
 Learning only happened in the synapses between the reservoir and the Purkinje cell layer and at the gha layer. 
 
 The gha layer 
@@ -116,7 +132,7 @@ The gha layer
 Weights are adjusted with a modified delta learning algorithm:
 
 $$
-\begin{aligned}\Delta w_{ij} =  \eta * (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
+\begin{aligned}\Delta w_{ij} =  \eta \, (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
 $$
 
 
