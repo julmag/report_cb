@@ -32,7 +32,7 @@ The activity of the reservoir is read out by a layer of purkinje cells, which in
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)) and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e.  ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$). 
 
 
-![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=40%}{align="center"}
+![**Figure 2:** 2D arm model. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=40%, .center}
 
 
 
