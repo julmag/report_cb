@@ -143,7 +143,7 @@ This visual display is fed as input into the model. i.e.:
 The condition in which the model is fed with the visual display will be called model agency condition. 
 The error for each circle was calculated as mean square error.  
 
-![**Figure 4:** Test Input Explanation ](img/test_explain.png){width:60%}
+![**Figure 4:** Test Input Explanation ](img/test_explain.png){ style="width: 50%; margin: auto; .center" }
 
 
 Testing was conducted with 1000 trials without learning, starting with control level 0 and incrementing it by +0.001 each run. Each trial consists of 20 circles. Circles were created as in the training phase, differentiating in radius, circle center and starting position on the circle. 
@@ -185,7 +185,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.2**
 
-<video controls width:60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4"
             type="video/mp4">
 </video>
@@ -194,7 +194,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.5**
 
-<video controls width:60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4"
             type="video/mp4">
 </video>
@@ -202,7 +202,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.7**
 
-<video controls width:60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4"
             type="video/mp4">
 </video>
@@ -212,7 +212,7 @@ With growing control over the movement the visual display gets less erratic and 
 Fig. 3 shows the influence of the control level on the prediction error (i.e. the MSE of the test circles raw values above, moving average below). As expected, the MSE increases as the control level decreases, signalling the discrepancy between the forward model predicting position and the noisy visual feedback. The sigmoidal shape of that relationship can be considered as a prediction of the model and confirmed experimentally.
 
 
-![**Figure 3:** Test MSE of Model Agency condition to Visual Display](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){ style="width: 60%; margin: auto;" }
+![**Figure 6:** Test MSE of Model Agency condition to Visual Display](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){ style="width: 60%; margin: auto;" }
 
 
 
