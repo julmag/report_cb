@@ -809,6 +809,12 @@
   background-color: #fff;
 }
 
+.markdown-body video.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .markdown-body img[align=right] {
   padding-left: 20px;
 }

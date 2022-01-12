@@ -107,7 +107,7 @@ r_j(t) = \text{tanh}(x_j(t))
 \]</span></p>
 <p><span class="math inline">\(\tau = 10\)</span> ensure relatively fast dynamics in the reservoir and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firing rate of the gha pre-neuron.</p>
 <p>The recurrent connections <span class="math inline">\(w^{rec}\)</span> are initialized using <strong>TODO</strong>.</p>
-<p>The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in python at each step.</p>
+<p>The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step.</p>
 <p>The projection neurons are defined by the following static model:</p>
 <p><span class="math display">\[
 \begin{aligned}r_{j}(t) = \sum_i w^{in}_{ij}\, I_i(t)  - \sum_i w^{purk}_{ij}\, r_i(t) \\\end{aligned}
@@ -146,7 +146,7 @@ r_j(t) = \text{tanh}(x_j(t))
 <img src="img/training_plots/training_Circle_0-100.png" alt="Figure 5: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." /><figcaption aria-hidden="true"><strong>Figure 5:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
 </figure>
 <p>The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: Control Level:0001 in the title is to be ignored.)</p>
-<video controls width=60%>
+<video class="center" controls width=60%>
 <source src="./videos/training/training_circles_0-25000.mp4"
             type="video/mp4">
 </video>
@@ -156,21 +156,21 @@ r_j(t) = \text{tanh}(x_j(t))
 <p><br />
 </p>
 <p><strong>Control level 0.2</strong></p>
-<video controls width=60%>
+<video class="center" controls width=60%>
 <source src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4"
             type="video/mp4">
 </video>
 <p><br />
 </p>
 <p><strong>Control level 0.5</strong></p>
-<video controls width=60%>
+<video class="center" controls width=60%>
 <source src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4"
             type="video/mp4">
 </video>
 <p><br />
 </p>
 <p><strong>Control level 0.7</strong></p>
-<video controls width=60%>
+<video class="center" controls width=60%>
 <source src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4"
             type="video/mp4">
 </video>
