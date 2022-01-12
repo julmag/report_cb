@@ -232,7 +232,7 @@ With growing control over the movement the visual display gets less erratic and 
 \
 
 
-Fig. 6 depicts the influence of the control level on the prediction error. As expected, the MSE increases as the control level decreases, signalling the discrepancy between the forward model predicting position and the noisy visual feedback. The sigmoidal shape of that relationship can be considered as a prediction of the model and confirmed experimentally.
+Fig. 6 depicts the influence of the control level on the MSE between the model agency condition and the visual display. As expected, the MSE increases as the control level decreases. 
 
 
 ![**Figure 6:** Test MSE of Model Agency condition to Visual Display. Upper chart depicts the raw MSE values, while the lower chart smothed the graph with a running mean of 100.](img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png){ style="width: 60%; margin: auto;" }
