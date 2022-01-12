@@ -81,7 +81,7 @@ $$
 
 $\tau = 10$ ensures relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos.The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
 
-The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{g} {\sqrt(N)} = \dfrac{1} {\sqrt(400)}$ .
+The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{1}{\sqrt(N)} = \dfrac{1} {\sqrt(400)}$ .
 
 
 The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step. 
@@ -130,7 +130,7 @@ The experimental task was designed to emulate the Random Dot Task. In the random
 This visual display is fed as input into the model. i.e.:
 
 * the current position of the effector (($x_{t}$, $y_{t})_{vd}$) is taken from the visual display and not from the target circle or the prediction of them model of the previous step.
-*  $\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ are calculated for the movement from ($x_{t}$, $y_{t})_{vd}$ to the target on the target circle for current step
+*  $\Delta\Theta_{1}$ and $\Delta\Theta_{2}$ are calculated for the movement from ($x_{t}$, $y_{t})_{vd}$ to the target on the target circle for current step
 * $\Delta x$ and $\Delta y$ are based on the last movement by the visual display ($\Delta x = (x_t - x_{t-1})_{vd}$ ; $\Delta y = (y_t - y_{t-1})_{vd}$ )
 
 
@@ -169,7 +169,6 @@ Below are examplary videos of a test run. The videos show five examples of the v
 At control level 0.2 most of the displayed movement of the effector (visual display circle in golden) is given by random noise and not the movement done by the theoretical test subject. Thus the visual display is expected to be quite erratic and the form far removed from the shape of the intended circle. Since the models movement command still aims at the target circle, the model should compensate the erratic movement of the visual display at least partly and draw something closer to the intended circle. 
 With growing control over the movement the visual display gets less erratic and the model is able to compensate the noise better. This can be observed in the three example videos. 
 
-\
 
 
 **Control level 0.2**
