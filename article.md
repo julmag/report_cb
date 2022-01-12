@@ -31,11 +31,11 @@ The activity of the reservoir is read out by a layer of purkinje cells, which in
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)), the previous movement ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$).  and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. 
 
 
-![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){ style="width: 50%; margin: auto; .center" }
+![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){ style="width: 45%; margin: auto; .center" }
 \
 \
 \
-![**Figure 3:** Example of Input.](img/input_explain.png){ style="width: 50%; margin: auto; .center" }
+![**Figure 3:** Example of Input.](img/input_explain.png){ style="width: 60%; margin: auto; .center" }
 
 The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at $t+1$ is represented by the target of timestep $t$ and not by the model prediction at $t$. $\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. $\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}$. Keep in mind that $x_t = x_{target_t-1}$. 
 
