@@ -68,7 +68,7 @@ SOFTWARE.
 <p class="author">Julian Thukral, Julien Vitay and Fred Hamker</p>
 </header>
 <p><strong>TODO:</strong> small abstract presenting the main idea (why forward models, cerebellum, etc) before jumping into the model.</p>
-<p>For a human body to move accuratly, movement control solely based on sensory feedback would be too slow. The body would control the movement based on where it was and not where it is, resulting in movements that for example overshooting the target. It is believed that movement control is based on internal models predicting the future state of the body (or rather the future sensory feedback). The two internal models of motor control are the inverse model, which issues a motor command given the current state and the desired state of the body and the forward model which predicts the future state of the body given the current state and an efference copy of said motor command. The comparison between the predicted and the obtained state results in the prediction error, which again is used in motor control, motor learning and as a key component in generating a Sense of Agency. The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually we don’t question if we are the agent of our own actions, it only comes into focus by the element of surprise when there is an incongruence of intention and action outcome. The cerebellum is thought to be the locus of the forward model. Acting not only as predictor of movements but also as the comparator between obtained and desired/predicted state. In this work we have built a neural forward model based on the architecture of the cerebellum. The model is trained to predict the future position of the hand of a 2D planar arm going in a circular motion.<br />
+<p>Movements requier precise timing and an aqccurate representation of the bodys state in the enviroment. Yet sensory feedback is subject to variable degrees of delay. With delayed information about the state of the body movement control would occure based on a past state and not the current state, resulting in false corrections for example overshooting the target. It is believed that movement control is based on internal models predicting the future state of the body. The two internal models of motor control are the inverse model, which issues a motor command given the current state and the desired state of the body and the forward model which predicts the future state of the body given the current state and an efference copy of said motor command. The comparison between the predicted and the obtained state results in the prediction error, which again is used in motor control, motor learning and as a key component in generating a Sense of Agency. The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually we don’t question if we are the agent of our own actions, it only comes into focus by the element of surprise when there is an incongruence of intention and action outcome. The cerebellum is thought to be the locus of the forward model. Acting not only as predictor of movements but also as the comparator between obtained and desired/predicted state. In this work we have built a neural forward model based on the architecture of the cerebellum. The model is trained to predict the future position of the hand of a 2D planar arm going in a circular motion.<br />
 Furthermore we tested the capabilities of the model with an experiment based on the Random Dot Task.</p>
 <p><br />
 <br />
@@ -82,28 +82,28 @@ Furthermore we tested the capabilities of the model with an experiment based on 
 <figure>
 <img src="img/cb_model.png" alt="Figure 1: Structure of the model." style="width: 70%; margin: auto; .center" /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
 </figure>
-<p>The model is trained to predict the next position of the hand of a 2d arm ((<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>)) based on the current position ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>)) and a movement command in form of the <span class="math inline">\(\Delta\)</span> of the joint angles (<span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> ). The base of the arm is situated at the coordinate origin. Additionally, the input contains the information about the visual displacement from the last step to the current step i.e. (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>).</p>
-<figure>
-<img src="img/arm.png" alt="Figure 2: 2D arm model. Source: doi:10.1109/IRIS.2017.8250090" class="center" /><figcaption><strong>Figure 2:</strong> 2D arm model. Source: doi:10.1109/IRIS.2017.8250090</figcaption>
-</figure>
-<p>The visual inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not by the model prediction at <span class="math inline">\(t\)</span>. <span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
+<p>The model is trained to predict the next position of the hand of a 2d arm ((<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>)) based on the current position ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>)), the previous movement (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>). and a movement command in form of the <span class="math inline">\(\Delta\)</span> of the joint angles (<span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> ). The base of the arm is situated at the coordinate origin.</p>
+<p><img src="img/arm.png" alt="Figure 2: 2D arm model. \Theta1 and \Theta2 are the movement commands. Source: doi:10.1109/IRIS.2017.8250090" style="width:40.0%" /><br />
+<br />
+<br />
+<img src="img/input_explain.png" alt="Figure 3: Example of Input." style="width:40.0%" /></p>
+<p>The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not by the model prediction at <span class="math inline">\(t\)</span>. <span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
 <p>The error is calculated as a normalized mean-square error (MSE) based on the difference between the predicted position (<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>) and the target (<span class="math inline">\(x_{target}\)</span>, <span class="math inline">\(y_{target}\)</span>).</p>
-<p>Training is done using 100.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation.</p>
-<figure>
-<img src="img/training_plots/input_explanation.png" alt="Figure 3: The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}." style="width:50.0%" /><figcaption><strong>Figure 3:</strong> The target moves 43 degrees in reference to the circle center. The target position of the hand at $x_{t+0} is used as the input of the current position of the hand at $x_{t+1}.</figcaption>
-</figure>
+<p>Training is done using 25.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation.</p>
 <h2 id="equations"><span class="header-section-number">1.2</span> Equations</h2>
 <h3 id="neurons"><span class="header-section-number">1.2.1</span> Neurons</h3>
-<p><strong>TODO:</strong> Make sentences and include all important equations.</p>
 <p>The firerate of the input neurons was set to the desired input. There were six input neurons representing each of the six different input (x,y, <span class="math inline">\(\Delta\Theta_{elbow}\)</span>, <span class="math inline">\(\Delta\Theta_{shoulder}\)</span>, <span class="math inline">\(\Delta x\)</span>, <span class="math inline">\(\Delta y\)</span>).</p>
 <p><br />
 <br />
 </p>
-<p>The neurons of the gha layer can be cescribed with the following equation:</p>
+<p>The neurons of the gha, input and purkinje can be described with the following equation:</p>
 <p><span class="math display">\[
 \begin{aligned}r_{j} = \sum^i w_{ij}\, r_i \\\end{aligned}
 \]</span></p>
-<p>where <span class="math inline">\(w_{ij}\)</span> represents the general hebbian algorithm pre-trained weights between input layer and gha layer and <span class="math inline">\(r_i\)</span> is given the connected input neuron.</p>
+<p><span class="math inline">\(w_{ij}\)</span> represents the weigths between the current layer and the previous layer, while <span class="math inline">\(r_i\)</span> is the firerate of the previous connected neuron.</p>
+<p>In case of the gha layer the weights are pre-trained with the generalized hebbian algorithm and updated throughout the training.</p>
+<p>The weights of the purkinje cell layer are initialized according to a normal distribution (<span class="math inline">\(m = 0\)</span> and <span class="math inline">\(\sigma = 0.1\)</span>) and updated each step during training, using a modified delta learning rule.</p>
+<p>The firrate rate of the input layer is simply set in python.</p>
 <p><br />
 <br />
 </p>
@@ -111,43 +111,33 @@ Furthermore we tested the capabilities of the model with an experiment based on 
 <p><span class="math display">\[
     \tau + \frac {dx(t)}{dt} + x(t)= \sum w^{in} \, r^{in}(t)+g
 \]</span></p>
-<p><span class="math inline">\(\tau = 10\)</span> meant the dynamics in the reservoir are relativly quick and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strentgh of the recurrent connections in the reservoir at the edge of chaos, a base prequesite for an Echo State Reservoir. The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firerrate of the gha pre-neuron.<br />
+<p><span class="math inline">\(\tau = 10\)</span> ensure relativly quick the dynamics in the reservoir and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strentgh of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firerrate of the gha pre-neuron.<br />
 The activation function of the reservoir neurons was given as:</p>
 <p><span class="math display">\[ 
 r = tanh(x(t))
 \]</span></p>
 <p><br />
 </p>
-<p>The firing rate of the the Purkinje cell layer is not dynamic and described by:</p>
-<p><span class="math display">\[
-\begin{aligned}r_{j} = \sum^i w_{ij}\, r_i \\\end{aligned}
-\]</span> The weights were initialized according to a normal distribution (<span class="math inline">\(m = 0\)</span> and <span class="math inline">\(\sigma = 0.1\)</span>) and updated each step using the learning rule.</p>
 <p>The firerate of the Inferior olive neurons wich feed the error feedback to the Purkinje Cells is calculated and set in python each step.</p>
 <p><br />
 <br />
 The projection neurons are defined by the similar equation as the prukinje cells: <span class="math display">\[
 \begin{aligned}r_{j} = \sum^i w^{in}_{ij}\, I_i  - \sum^i w^{purk}_{ij}\, r_i \\\end{aligned}
 \]</span></p>
-<p>The projection neurons recieve a copy of the input from the mossy fibres and input from the purkinjie cells. <span class="math inline">\(w^{in}_{ij}\)</span> and <span class="math inline">\(w^{purk}_{ij}\)</span> are set to <span class="math inline">\(1\)</span>. The firerate of the projection neurons equals the copy of the mossy fibre input minus the purkinjie firerate. Hence the purkinjie cells don’t learn to predict the new coordinates of the hand of the arm but the movement between the old coordinates and the new.</p>
+<p>The projection neurons recieve a copy of the input from the mossy fibres and input from the purkinjie cells. <span class="math inline">\(w^{in}_{ij}\)</span> and <span class="math inline">\(w^{purk}_{ij}\)</span> are set to <span class="math inline">\(1\)</span>. The firerate of the projection neurons equals the copy of the mossy fibre input minus the purkinjie firerate. Hence the purkinjie cells don’t learn to predict the new coordinates of the effector, but the movement between the old coordinates and the new (i.e. <span class="math inline">\(\Delta x = x_{t+1} - x_{t}\)</span> ) .</p>
 <h3 id="synapses"><span class="header-section-number">1.2.2</span> Synapses</h3>
-<p><strong>TODO:</strong> GHA</p>
-<p>Sanger’s rule aka Generalized Hebbian Algorithm <span class="math display">\[
-\begin{aligned}\Delta w_{ij} =  \eta \, \bigg(y_i \, x_j - y_i \sum_{k=1}^i w_{kj} \, y_k\bigg)\\\end{aligned}
-\]</span></p>
-<p>Same rule in Matrix form.</p>
-<p><span class="math display">\[
+<p>During training learning only occurs in the synapses between the reservoir and the purkinje cell layer and at the gha layer.</p>
+<p>The synapses between the input layer and the gha layer were updated using the Sanger’s Rule aka the Generalized Hebbian Algortih (GHA). The purpose of using a GHA is to decorrelate the input, and relaying a clearer input signal to the reservoir.</p>
+<p>The GHA was implemented in its matrix form using the following equation: <span class="math display">\[
 \begin{aligned}\Delta w_{(t)} =  \eta_{(t)} \, \bigg(y_{(t)} \, x_{(t)}^T - LT[y_{(t)} \, y_{(t)}^T] \, w_{(t)}\bigg) \\\end{aligned}
 \]</span></p>
-<p>Learning only happened in the synapses between the reservoir and the Purkinje cell layer and at the gha layer.</p>
-<p>The gha layer</p>
-<p>Weights are adjusted with a modified delta learning algorithm:</p>
+<p>In reservoir computing models learning is based on the wieght adjustment between the reservoir layer and the output layer in case of this model the purkije cell layer. Weights are adjusted with a modified delta learning algorithm:</p>
 <p><span class="math display">\[
 \begin{aligned}\Delta w_{ij} =  \eta \, (r_{i} \, e_{j} - c \, w_{ij)}) \\\end{aligned}
 \]</span></p>
-<p>The learning rate was set to <span class="math inline">\(\eta = 0.005\)</span> . A cost parameter was added and set to <span class="math inline">\(c = 0.001\)</span>. Each step in the circle the error, <span class="math inline">\(e_j\)</span>, was calculated in python as target - model_prediction. And fed into the prukinje cell layer via the inferior olive cells.</p>
-<h2 id="random-dot-task"><span class="header-section-number">1.3</span> Random dot task</h2>
-<p>In the random dot task, the movement of the dot displayed on the monitor consists of the movement of the test subject and added noise. The ratio is specified by the control level, which defines the percentage of control a test subject has after the movement of the dot. To simulate a similar task for the model, a visual display circle is first calculated, based on the target circle with added noise. The added noise is taken from the same noise array as in the dot task, an array with prerecorded pseudorandom movements. At each step, a random movement in the array is taken, normalized and added to the movement of the target circle. The control level specifies the percentage of the movement done by noise or true movement.</p>
-<p><strong>TODO</strong> make a figure to better explain.</p>
+<p>The learning rate was set to <span class="math inline">\(\eta = 0.005\)</span> . A cost parameter was added and set to <span class="math inline">\(c = 0.001\)</span>. Each step in the circle the error, <span class="math inline">\(e_j\)</span>, was calculated in python as (target - model_prediction) and fed into the prukinje cell layer via the inferior olive cells.</p>
+<h2 id="experimental-task"><span class="header-section-number">1.3</span> Experimental Task</h2>
+<p>The experimental task was designed to emulate the Random Dot Task. In the random dot task, the movement of the dot displayed on the monitor consists of the movement of the test subject and added noise. The ratio is specified by the control level, which defines the percentage of control a test subject has after the movement of the dot. To simulate a similar task for the model, a visual display circle is first calculated, based on the target circle with added noise. The added noise is taken from the same noise array as in the dot task, an array with prerecorded pseudorandom movements. At each step, a random movement in the array is taken, normalized and added to the movement of the target circle. The control level specifies the percentage of the movement done by noise or true movement.</p>
 <p>This visual display is fed as input into the model. i.e.:</p>
 <ul>
 <li>the current position of the effector ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t})_{vd}\)</span>) is taken from the visual display and not from the target circle or the prediction of them model of the previous step.</li>
@@ -155,20 +145,25 @@ The projection neurons are defined by the similar equation as the prukinje cells
 <li><span class="math inline">\(\Delta x\)</span> and <span class="math inline">\(\Delta y\)</span> are based on the last movement by the visual display (<span class="math inline">\(\Delta x = (x_t - x_{t-1})_{vd}\)</span> ; <span class="math inline">\(\Delta y = (y_t - y_{t-1})_{vd}\)</span> )</li>
 </ul>
 <p>The condition in which the model is fed with the visual display will be called model agency condition. The error for each circle was calculated as mean square error.</p>
+<figure>
+<img src="img/test_explain.png" alt="Figure 4: Test Input Explanation" style="width:40.0%" /><figcaption><strong>Figure 4:</strong> Test Input Explanation</figcaption>
+</figure>
 <p>Testing was conducted with 1000 trials without learning, starting with control level 0 and incrementing it by +0.001 each run. Each trial consists of 20 circles. Circles were created as in the training phase, differentiating in radius, circle center and starting position on the circle.</p>
 <h1 id="results"><span class="header-section-number">2</span> Results</h1>
 <h2 id="training"><span class="header-section-number">2.1</span> Training</h2>
-<p>As can be seen in Fig. 2, the training MSE decreases rapidly during training, showing that learning the forward model of the arm is successful.</p>
+<p>As can be seen in Fig. 5, the training MSE decreases rapidly during training reaching and MSE of 0.3177 after 100 circles. after the first few circles. Taking a longer comparibly longer time for optimization in this run The model reached an MSE of 0.0034 after 25.000 circles.</p>
 <figure>
-<img src="img/training_plots/training_Circle_0-100.png" alt="Figure 2: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." style="width: 40%; margin: auto;" /><figcaption><strong>Figure 2:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
+<img src="img/training_plots/training_Circle_0-100.png" alt="Figure 5: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." style="width: 40%; margin: auto;" /><figcaption><strong>Figure 5:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
 </figure>
-<p>The following video illustrates how the model performance progresses through training. <strong>TODO: give more explanations on what should be observed.</strong></p>
+<p>The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: The Control Level:0001 in the title is to be ignored.)</p>
 <video controls width=60%>
-<source src="./videos/training/training_circles_0-99999.mp4"
+<source src="./videos/training/training_circles_0-25000.mp4"
             type="video/mp4">
 </video>
-<h2 id="test-trials-with-different-control-levels"><span class="header-section-number">2.2</span> Test trials with different control levels</h2>
-<p>Below are examplary videos of a test run. For each control level, 5 circles were run. The videos show the visual display and the movement of the model agency condition at the control levels 0.2, 0.5 and 0.7. The control level and the mse for the circle are displayed in the title.</p>
+<p><strong>TODO: give more explanations on what should be observed.</strong></p>
+<h2 id="experimental-task-1"><span class="header-section-number">2.2</span> Experimental Task</h2>
+<p>Below are examplary videos of a test run. The videos show five examples of the visual display and the movement of the model agency condition at the control levels 0.2, 0.5 and 0.7. The control level and the mse for the circle are displayed in the title.</p>
+<p>At control level 0.2 most of the displayed movement of the effector (visual display circle in golden) is given by random noise and not the mvoement done by the theoretical test subject.</p>
 <p><strong>TODO:</strong> explain more what should be observed.</p>
 <p><strong>Control level 0.2</strong></p>
 <video controls width=60%>
