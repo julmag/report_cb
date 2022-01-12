@@ -81,7 +81,7 @@ $$
 
 $\tau = 10$ ensures relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos.The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
 
-The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{1}{\sqrt(N)} = \dfrac{1} {\sqrt(400)}$ .
+The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{1}{\sqrt{N}} = \dfrac{1} {\sqrt{400}}$ .
 
 
 The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step. 
@@ -104,10 +104,10 @@ The synapses between the input layer and the gha layer are updated using the San
 The GHA was implemented in its matrix form using the following equation:
 
 $$
-\Delta w(t) =  \eta \, \bigg(y_{(t)} \, x_{(t)}^T - LT[y_{(t)} \, y_{(t)}^T] \, w_{(t)}\bigg) 
+\Delta w(t) =  \eta \, \bigg(y(t) \times x^T(t) - LT[y(t) \times y^T(t)] \times w(t) \bigg) 
 $$
 
-$w_t$ is a matrix representing the synaptic weights. $\eta$ the learning rate was set to $0.1$. (See [Sanger, 1989](https://www.sciencedirect.com/science/article/abs/pii/0893608089900440); Function 3). The LT function sets all the matrix entries of the $[y_{(t)} \, y_{(t)}^T]$ matrix to zero. 
+$w$ is a matrix representing the synaptic weights, $x$ is a vector of inputs and $y$ is the output vector. The learning rate $\eta$ is set to $0.1$. See ([Sanger, 1989](https://www.sciencedirect.com/science/article/abs/pii/0893608089900440); Function 3). The LT function sets all the upper matrix entries of $y(t) \times y^T(t)$ to zero, i.e. it becomes lower triangular. 
 
 
 In reservoir computing, learning is based on the weight adjustment between the reservoir layer and the output layer, here the Purkinje cell layer. 

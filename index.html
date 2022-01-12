@@ -114,7 +114,7 @@ SOFTWARE.
 r_j(t) = \text{tanh}(x_j(t))
 \]</span></p>
 <p><span class="math inline">\(\tau = 10\)</span> ensures relatively fast dynamics in the reservoir and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos.The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firing rate of the gha pre-neuron.</p>
-<p>The recurrent connections in the reservoir <span class="math inline">\(w^{rec}\)</span> are initialized using using a normal distribution with mean 0 and a deviation of <span class="math inline">\(\dfrac{1}{\sqrt(N)} = \dfrac{1} {\sqrt(400)}\)</span> .</p>
+<p>The recurrent connections in the reservoir <span class="math inline">\(w^{rec}\)</span> are initialized using using a normal distribution with mean 0 and a deviation of <span class="math inline">\(\dfrac{1}{\sqrt{N}} = \dfrac{1} {\sqrt{400}}\)</span> .</p>
 <p>The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step.</p>
 <p>The projection neurons are defined by the following static formula:</p>
 <p><span class="math display">\[
@@ -126,9 +126,9 @@ r_j(t) = \text{tanh}(x_j(t))
 <p>The synapses between the input layer and the gha layer are updated using the Sanger’s Rule aka the Generalized Hebbian Algorithm (GHA). The GHA is a Hebbian learning based iterative and unsupervised process to compute a Principal Compnent Analysis. In this model it was use to decorrelate the inputs and to relay a clearer input signal to the reservoir.</p>
 <p>The GHA was implemented in its matrix form using the following equation:</p>
 <p><span class="math display">\[
-\Delta w(t) =  \eta \, \bigg(y_{(t)} \, x_{(t)}^T - LT[y_{(t)} \, y_{(t)}^T] \, w_{(t)}\bigg) 
+\Delta w(t) =  \eta \, \bigg(y(t) \times x^T(t) - LT[y(t) \times y^T(t)] \times w(t) \bigg) 
 \]</span></p>
-<p><span class="math inline">\(w_t\)</span> is a matrix representing the synaptic weights. <span class="math inline">\(\eta\)</span> the learning rate was set to <span class="math inline">\(0.1\)</span>. (See <a href="https://www.sciencedirect.com/science/article/abs/pii/0893608089900440">Sanger, 1989</a>; Function 3). The LT function sets all the matrix entries of the <span class="math inline">\([y_{(t)} \, y_{(t)}^T]\)</span> matrix to zero.</p>
+<p><span class="math inline">\(w\)</span> is a matrix representing the synaptic weights, <span class="math inline">\(x\)</span> is a vector of inputs and <span class="math inline">\(y\)</span> is the output vector. The learning rate <span class="math inline">\(\eta\)</span> is set to <span class="math inline">\(0.1\)</span>. See (<a href="https://www.sciencedirect.com/science/article/abs/pii/0893608089900440">Sanger, 1989</a>; Function 3). The LT function sets all the upper matrix entries of <span class="math inline">\(y(t) \times y^T(t)\)</span> to zero, i.e. it becomes lower triangular.</p>
 <p>In reservoir computing, learning is based on the weight adjustment between the reservoir layer and the output layer, here the Purkinje cell layer. Weights are adjusted with a modified delta learning algorithm:</p>
 <p><span class="math display">\[
 \Delta w_{ij} =  \eta \, (r_{i} \, e_{j} - c \, w_{ij)}) 
