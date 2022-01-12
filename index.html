@@ -83,10 +83,10 @@ Furthermore we tested the capabilities of the model with an experiment based on 
 <img src="img/cb_model.png" alt="Figure 1: Structure of the model." style="width: 70%; margin: auto; .center" /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
 </figure>
 <p>The model is trained to predict the next position of the hand of a 2d arm ((<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>)) based on the current position ((<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>)), the previous movement (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>). and a movement command in form of the <span class="math inline">\(\Delta\)</span> of the joint angles (<span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> ). The base of the arm is situated at the coordinate origin.</p>
-<p><img src="img/arm.png" alt="Figure 2: 2D arm model. \Theta1 and \Theta2 are the movement commands. Source: doi:10.1109/IRIS.2017.8250090" style="width:40.0%" /><br />
+<p><img src="img/arm.png" alt="Figure 2: 2D arm model. \Theta1 and \Theta2 are the movement commands. Source: doi:10.1109/IRIS.2017.8250090" style="width:60.0%" /><br />
 <br />
 <br />
-<img src="img/input_explain.png" alt="Figure 3: Example of Input." style="width:40.0%" /></p>
+<img src="img/input_explain.png" alt="Figure 3: Example of Input." style="width:60.0%" /></p>
 <p>The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not by the model prediction at <span class="math inline">\(t\)</span>. <span class="math inline">\(\Delta\Theta_{elbow}\)</span> and <span class="math inline">\(\Delta\Theta_{shoulder}\)</span> are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
 <p>The error is calculated as a normalized mean-square error (MSE) based on the difference between the predicted position (<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>) and the target (<span class="math inline">\(x_{target}\)</span>, <span class="math inline">\(y_{target}\)</span>).</p>
 <p>Training is done using 25.000 circles, with 8 predictions/steps each. Each circle differentiates in the center of the circle, the radius, and the starting position of the hand in the circle. Each movement per timestep step was set to a movement of the hand of a constant 43 degrees. Thus each circle needed 8 steps for one complete circumnavigation.</p>
@@ -146,14 +146,14 @@ The projection neurons are defined by the similar equation as the prukinje cells
 </ul>
 <p>The condition in which the model is fed with the visual display will be called model agency condition. The error for each circle was calculated as mean square error.</p>
 <figure>
-<img src="img/test_explain.png" alt="Figure 4: Test Input Explanation" style="width:40.0%" /><figcaption><strong>Figure 4:</strong> Test Input Explanation</figcaption>
+<img src="img/test_explain.png" alt="Figure 4: Test Input Explanation" style="width:60.0%" /><figcaption><strong>Figure 4:</strong> Test Input Explanation</figcaption>
 </figure>
 <p>Testing was conducted with 1000 trials without learning, starting with control level 0 and incrementing it by +0.001 each run. Each trial consists of 20 circles. Circles were created as in the training phase, differentiating in radius, circle center and starting position on the circle.</p>
 <h1 id="results"><span class="header-section-number">2</span> Results</h1>
 <h2 id="training"><span class="header-section-number">2.1</span> Training</h2>
 <p>As can be seen in Fig. 5, the training MSE decreases rapidly during training reaching and MSE of 0.3177 after 100 circles. after the first few circles. Taking a longer comparibly longer time for optimization in this run The model reached an MSE of 0.0034 after 25.000 circles.</p>
 <figure>
-<img src="img/training_plots/training_Circle_0-100.png" alt="Figure 5: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." style="width: 40%; margin: auto;" /><figcaption><strong>Figure 5:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
+<img src="img/training_plots/training_Circle_0-100.png" alt="Figure 5: Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177." style="width: 60%; margin: auto;" /><figcaption><strong>Figure 5:</strong> Training MSE of the first 100 Training Circles. MSE Circle 100 = 0.3177.</figcaption>
 </figure>
 <p>The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: The Control Level:0001 in the title is to be ignored.)</p>
 <video controls width=60%>
@@ -183,7 +183,7 @@ The projection neurons are defined by the similar equation as the prukinje cells
 <h2 id="relationship-between-the-control-level-and-the-prediction-error"><span class="header-section-number">2.3</span> Relationship between the control level and the prediction error</h2>
 <p>Fig. 3 shows the influence of the control level on the prediction error (i.e. the MSE of the test circles raw values above, moving average below). As expected, the MSE increases as the control level decreases, signalling the discrepancy between the forward model predicting position and the noisy visual feedback. The sigmoidal shape of that relationship can be considered as a prediction of the model and confirmed experimentally.</p>
 <figure>
-<img src="img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png" alt="Figure 3: Test MSE of Model Agency condition to Visual Display" style="width: 40%; margin: auto;" /><figcaption><strong>Figure 3:</strong> Test MSE of Model Agency condition to Visual Display</figcaption>
+<img src="img/test_plots/ED_from_model_ac_to_vd_cl_0-1.png" alt="Figure 3: Test MSE of Model Agency condition to Visual Display" style="width: 60%; margin: auto;" /><figcaption><strong>Figure 3:</strong> Test MSE of Model Agency condition to Visual Display</figcaption>
 </figure>
 </article>
 </body>
