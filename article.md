@@ -67,12 +67,12 @@ $$
 The activation function of the reservoir neurons was given as: 
 
 $$ 
-r_j(t) = tanh(x_j(t))
+r_j(t) = \text{tanh}(x_j(t))
 $$
 
 $\tau = 10$ ensure relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
 
-The recurrent connections $w^{rec}$ are initilaized using **TODO**.
+The recurrent connections $w^{rec}$ are initialized using **TODO**.
 
 
 The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in python at each step. 

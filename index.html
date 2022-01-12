@@ -103,10 +103,10 @@ SOFTWARE.
 \]</span></p>
 <p>The activation function of the reservoir neurons was given as:</p>
 <p><span class="math display">\[ 
-r_j(t) = tanh(x_j(t))
+r_j(t) = \text{tanh}(x_j(t))
 \]</span></p>
 <p><span class="math inline">\(\tau = 10\)</span> ensure relatively fast dynamics in the reservoir and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firing rate of the gha pre-neuron.</p>
-<p>The recurrent connections <span class="math inline">\(w^{rec}\)</span> are initilaized using <strong>TODO</strong>.</p>
+<p>The recurrent connections <span class="math inline">\(w^{rec}\)</span> are initialized using <strong>TODO</strong>.</p>
 <p>The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in python at each step.</p>
 <p>The projection neurons are defined by the following static model:</p>
 <p><span class="math display">\[
