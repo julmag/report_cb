@@ -3,7 +3,6 @@ title: Forward models in the cerebellum
 author: Julian Thukral, Julien Vitay and Fred Hamker
 ---
 
-**TODO:** small abstract presenting the main idea (why forward models, cerebellum, etc) before jumping into the model.
 
 Movements requier precise timing and an aqccurate representation of the bodys state in the enviroment. Yet sensory feedback is subject to variable degrees of delay. With delayed information about the state of the body movement control would occure based on a past state and not the current state, resulting in false corrections for example overshooting the target. It is believed that movement control is based on internal models predicting the future state of the body. The two internal models of motor control are the inverse model, which issues a motor command given the current state and the desired state of the body and the forward model which predicts the future state of the body given the current state and an efference copy of said motor command. The comparison between the predicted and the obtained state results in the prediction error, which again is used in motor control, motor learning and as a key component in generating a Sense of Agency. 
 The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually we don’t question if we are the agent of our own actions, it only comes into focus by the element of surprise when there is an incongruence of intention and action outcome. 
@@ -32,11 +31,11 @@ The activity of the reservoir is read out by a layer of purkinje cells, which in
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)), the previous movement ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$).  and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. 
 
 
-![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width:50%}
+![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){ style="width: 50%; margin: auto; .center" }
 \
 \
 \
-![**Figure 3:** Example of Input.](img/input_explain.png){width:60%}
+![**Figure 3:** Example of Input.](img/input_explain.png){ style="width: 50%; margin: auto; .center" }
 
 The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at $t+1$ is represented by the target of timestep $t$ and not by the model prediction at $t$. $\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. $\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}$. Keep in mind that $x_t = x_{target_t-1}$. 
 
@@ -178,7 +177,8 @@ The following video illustrates how the model performance progresses through tra
 
 Below are examplary videos of a test run. The videos show five examples of the visual display and the movement of the model agency condition at the control levels 0.2, 0.5 and 0.7. The control level and the mse for the circle are displayed in the title.
 
-At control level 0.2 most of the displayed movement of the effector (visual display circle in golden) is given by random noise and not the mvoement done by the theoretical test subject.  
+At control level 0.2 most of the displayed movement of the effector (visual display circle in golden) is given by random noise and not the movement done by the theoretical test subject. Thus the visual display is expected to be quite erratic and the form far removed from the shape of the intended circle. Since the models movement command still aims at the target circle, the model should compensate the erratic movement of the visual display at least partly and draw something closer to the intended circle. 
+With growing control over the movement the visual display gets less erratic and the model is able to compensate the noise better. This can be observed in the three example videos. 
 
 **TODO:** explain more what should be observed.
 
