@@ -35,7 +35,7 @@ The model is trained to predict the next position of the hand of a 2d arm (($x_{
 \
 \
 \
-![**Figure 3:** Example of Input.](img/input_explain.png){ style="width: 60%; margin: auto; .center" }
+![**Figure 3:** Example of Input.](img/input_explain.png){ style="width: 75%; margin: auto; .center" }
 
 The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at $t+1$ is represented by the target of timestep $t$ and not by the model prediction at $t$. $\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. $\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}$. Keep in mind that $x_t = x_{target_t-1}$. 
 
