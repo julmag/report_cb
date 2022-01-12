@@ -32,11 +32,11 @@ The activity of the reservoir is read out by a layer of purkinje cells, which in
 The model is trained to predict the next position of the hand of a 2d arm (($x_{t+1}$, $y_{t+1}$)) based on the current position (($x_{t}$, $y_{t}$)), the previous movement ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$).  and a movement command in form of the $\Delta$ of the joint angles ($\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ ). The base of the arm is situated at the coordinate origin. 
 
 
-![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=60%}
+![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the movement commands. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width:50%}
 \
 \
 \
-![**Figure 3:** Example of Input.](img/input_explain.png){width=60%}
+![**Figure 3:** Example of Input.](img/input_explain.png){width:60%}
 
 The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at $t+1$ is represented by the target of timestep $t$ and not by the model prediction at $t$. $\Delta\Theta_{elbow}$ and $\Delta\Theta_{shoulder}$ are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. $\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}$. Keep in mind that $x_t = x_{target_t-1}$. 
 
@@ -144,7 +144,7 @@ This visual display is fed as input into the model. i.e.:
 The condition in which the model is fed with the visual display will be called model agency condition. 
 The error for each circle was calculated as mean square error.  
 
-![**Figure 4:** Test Input Explanation ](img/test_explain.png){width=60%}
+![**Figure 4:** Test Input Explanation ](img/test_explain.png){width:60%}
 
 
 Testing was conducted with 1000 trials without learning, starting with control level 0 and incrementing it by +0.001 each run. Each trial consists of 20 circles. Circles were created as in the training phase, differentiating in radius, circle center and starting position on the circle. 
@@ -162,7 +162,7 @@ As can be seen in Fig. 5, the training MSE decreases rapidly during training rea
 The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: The Control Level:0001 in the title is to be ignored.) 
 
 
-<video controls width=60%>
+<video controls width:60%>
     <source src="./videos/training/training_circles_0-25000.mp4"
             type="video/mp4">
 </video>
@@ -185,7 +185,7 @@ At control level 0.2 most of the displayed movement of the effector (visual disp
 
 **Control level 0.2**
 
-<video controls width=60%>
+<video controls width:60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4"
             type="video/mp4">
 </video>
@@ -194,7 +194,7 @@ At control level 0.2 most of the displayed movement of the effector (visual disp
 
 **Control level 0.5**
 
-<video controls width=60%>
+<video controls width:60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4"
             type="video/mp4">
 </video>
@@ -202,7 +202,7 @@ At control level 0.2 most of the displayed movement of the effector (visual disp
 
 **Control level 0.7**
 
-<video controls width=60%>
+<video controls width:60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4"
             type="video/mp4">
 </video>
