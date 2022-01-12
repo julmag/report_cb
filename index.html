@@ -72,15 +72,23 @@ SOFTWARE.
 <h1 id="methods"><span class="header-section-number">1</span> Methods</h1>
 <h2 id="description-of-the-model"><span class="header-section-number">1.1</span> Description of the model</h2>
 <p>The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via <strong>mossy fibers</strong> and to the output cells (<strong>projection neurons</strong>). A general Hebbian algorithm (gha) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir.</p>
-<p>The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between <strong>granule cells</strong> (excitatory) and <strong>Golgi cells</strong> (inhibitory), which is able to exhibit strong non-linear dynamics.</p>
-<p>The activity of the reservoir is read out by a layer of <strong>Purkinje cells</strong>, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model’s output, on which basis the error is calculated. Based on the error feedback from the <strong>inferior olive cells</strong>, synaptic weights are adjusted between the reservoir and the Purkinje layer. The Purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.</p>
+<p>The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between <strong>granule cells</strong> (excitatory) and <strong>golgi cells</strong> (inhibitory), which is able to exhibit strong non-linear dynamics.</p>
+<p>The activity of the reservoir is read out by a layer of <strong>purkinje cells</strong>, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model’s output, on which basis the error is calculated. Based on the error feedback from the <strong>inferior olive cells</strong>, synaptic weights are adjusted between the reservoir and the Purkinje layer. The Purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.</p>
 <figure>
 <img src="img/cb_model.png" alt="Figure 1: Structure of the model." /><figcaption><strong>Figure 1:</strong> Structure of the model.</figcaption>
 </figure>
 <p>The model is trained to predict the next position of the hand of a 2d arm (<span class="math inline">\(x_{t+1}\)</span>, <span class="math inline">\(y_{t+1}\)</span>) based on the current position (<span class="math inline">\(x_{t}\)</span>, <span class="math inline">\(y_{t}\)</span>), the previous movement (<span class="math inline">\(\Delta x = x_{t} - x_{t-1}\)</span>; <span class="math inline">\(\Delta y = y_{t} - y_{t-1}\)</span>), and a movement command in form of change of the two joint angles (<span class="math inline">\(\Delta\Theta_1\)</span> and <span class="math inline">\(\Delta\Theta_2\)</span> ). The base of the arm is situated at the coordinate origin.</p>
 <figure>
-<img src="img/arm.png" alt="Figure 2: 2D arm model. \Theta1 and \Theta2 are the joint angles. Source: doi:10.1109/IRIS.2017.8250090" style="width:50.0%" /><figcaption><strong>Figure 2:</strong> 2D arm model. <span class="math inline">\(\Theta1\)</span> and <span class="math inline">\(\Theta2\)</span> are the joint angles. Source: doi:10.1109/IRIS.2017.8250090</figcaption>
+<img src="img/arm_model.png" alt="Figure 2: 2D arm model. \Theta1 and \Theta2 are the joint angles. Source: doi:10.1109/IRIS.2017.8250090" style="width:80.0%" /><figcaption><strong>Figure 2:</strong> 2D arm model. <span class="math inline">\(\Theta1\)</span> and <span class="math inline">\(\Theta2\)</span> are the joint angles. Source: doi:10.1109/IRIS.2017.8250090</figcaption>
 </figure>
+<p><br />
+<strong>Example Circle drawn by 2D Arm</strong></p>
+<video controls width=60%>
+<source src="./videos/example_circle.mp4"
+            type="video/mp4">
+</video>
+<p><br />
+</p>
 <p>The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at <span class="math inline">\(t+1\)</span> is represented by the target of timestep <span class="math inline">\(t\)</span> and not by the model prediction at <span class="math inline">\(t\)</span>. <span class="math inline">\(\Delta\Theta_1\)</span> and <span class="math inline">\(\Delta\Theta_2\)</span> are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. <span class="math inline">\(\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}\)</span>. Keep in mind that <span class="math inline">\(x_t = x_{target_t-1}\)</span>.</p>
 <figure>
 <img src="img/input_explain.png" alt="Figure 3: Sequence of predicted and real positions of the arm’s endpoint on a circle." style="width:75.0%" /><figcaption><strong>Figure 3:</strong> Sequence of predicted and real positions of the arm’s endpoint on a circle.</figcaption>
@@ -108,7 +116,7 @@ r_j(t) = \text{tanh}(x_j(t))
 <p><span class="math inline">\(\tau = 10\)</span> ensure relatively fast dynamics in the reservoir and the scaling factor <span class="math inline">\(g = 1\)</span> characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights <span class="math inline">\(w^{in}\)</span> are set using a random uniform distribution between the <span class="math inline">\(min=-0.5\)</span> and the <span class="math inline">\(max=0.5\)</span>, while <span class="math inline">\(r^{in}\)</span> is given by the firing rate of the gha pre-neuron.</p>
 <p>The recurrent connections in the reservoir <span class="math inline">\(w^{rec}\)</span> are initialized using using a normal distribution with mean 0 and a deviation of <span class="math inline">\(\dfrac{g} {\sqrt(N)} = \dfrac{1} {\sqrt(400)}\)</span> .</p>
 <p>The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step.</p>
-<p>The projection neurons are defined by the following static model:</p>
+<p>The projection neurons are defined by the following static formula:</p>
 <p><span class="math display">\[
 \begin{aligned}r_{j}(t) = \sum_i w^{in}_{ij}\, I_i(t)  - \sum_i w^{purk}_{ij}\, r_i(t) \\\end{aligned}
 \]</span></p>

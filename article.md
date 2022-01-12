@@ -15,9 +15,9 @@ The cerebellum is thought to be the locus of the forward model, acting not only 
 
 The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via **mossy fibers** and to the output cells (**projection neurons**). A general Hebbian algorithm (gha) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
 
-The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between **granule cells** (excitatory) and **Golgi cells** (inhibitory), which is able to exhibit strong non-linear dynamics.
+The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between **granule cells** (excitatory) and **golgi cells** (inhibitory), which is able to exhibit strong non-linear dynamics.
 
-The activity of the reservoir is read out by a layer of **Purkinje cells**, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model's output, on which basis the error is calculated. Based on the error feedback from the **inferior olive cells**, synaptic weights are adjusted between the reservoir and the Purkinje layer. The Purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.  
+The activity of the reservoir is read out by a layer of **purkinje cells**, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model's output, on which basis the error is calculated. Based on the error feedback from the **inferior olive cells**, synaptic weights are adjusted between the reservoir and the Purkinje layer. The Purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.  
 
 ![**Figure 1:** Structure of the model.](img/cb_model.png)
 
@@ -25,8 +25,17 @@ The activity of the reservoir is read out by a layer of **Purkinje cells**, whic
 The model is trained to predict the next position of the hand of a 2d arm ($x_{t+1}$, $y_{t+1}$) based on the current position ($x_{t}$, $y_{t}$), the previous movement ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$),  and a movement command in form of change of the two joint angles ($\Delta\Theta_1$ and $\Delta\Theta_2$ ). The base of the arm is situated at the coordinate origin. 
 
 
-![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the joint angles. Source: doi:10.1109/IRIS.2017.8250090](img/arm.png){width=50%}
+![**Figure 2:** 2D arm model. $\Theta1$ and $\Theta2$ are the joint angles. Source: doi:10.1109/IRIS.2017.8250090](img/arm_model.png){width=80%}
+ 
+ \
+**Example Circle drawn by 2D Arm**
 
+<video controls width=60%>
+    <source src="./videos/example_circle.mp4"
+            type="video/mp4">
+</video>
+
+\
 
 The inputs correspond to positions on the target circle and not to predictions of the model. The current position of the hand at $t+1$ is represented by the target of timestep $t$ and not by the model prediction at $t$. $\Delta\Theta_1$ and $\Delta\Theta_2$ are calculated as the movement command from the last position on the target circle to the current position on the target circle. The same principle applies to the information about the last step i.e. $\Delta x = x_t - x_{t-1} = x_{target_t-1}-x_{t-1}$. Keep in mind that $x_t = x_{target_t-1}$. 
 
@@ -77,7 +86,7 @@ The recurrent connections in the reservoir $w^{rec}$ are initialized using using
 
 The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step. 
 
-The projection neurons are defined by the following static model:
+The projection neurons are defined by the following static formula:
 
 $$
 \begin{aligned}r_{j}(t) = \sum_i w^{in}_{ij}\, I_i(t)  - \sum_i w^{purk}_{ij}\, r_i(t) \\\end{aligned}
