@@ -161,7 +161,7 @@ As can be seen in Fig. 5, the training MSE decreases rapidly during training rea
 The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: The Control Level:0001 in the title is to be ignored.) 
 
 
-<video controls width:60%>
+<video controls width=60%>
     <source src="./videos/training/training_circles_0-25000.mp4"
             type="video/mp4">
 </video>
