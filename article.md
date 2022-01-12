@@ -6,18 +6,18 @@ author: Julian Thukral, Julien Vitay and Fred Hamker
 
 Movements require precise timing and an accurate representation of the body's state in the environment. Yet sensory feedback is subject to variable degrees of delay. With delayed information about the state of the body, movement control would occur based on a past state and not the current state, resulting in false corrections such as overshooting the target. It is believed that movement control is based on internal models predicting the future state of the body. The two internal models of motor control are the **inverse model**, which issues a motor command given the current state and the desired state of the body and the **forward model** which predicts the future state of the body given the current state and an efference copy of said motor command. The comparison between the predicted and the obtained state results in the prediction error, which again is used in motor control, motor learning and as a key component in generating a Sense of Agency. 
 
-The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually we do not question if we are the agent of our own actions, it only comes into focus by the element of surprise when there is an incongruence of intention and action outcome. 
+The Sense of Agency describes the experience of controlling our own actions and through them events in the outside world. Usually not prevalent the Sense of Agency comes into focus when there is an incongruence of desired and and actual action outcome. 
 The cerebellum is thought to be the locus of the forward model, acting not only as predictor of movements but also as the comparator between obtained and desired/predicted state. In this work we have built a neural forward model based on the architecture of the cerebellum. The model is trained to predict the future position of the hand of a 2D planar arm going in a circular motion. Furthermore we tested the capabilities of the model with an experiment based on the Random Dot Task.
 
 # Methods
 
 ## Description of the model
 
-The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via **mossy fibers** and to the output cells (**projection neurons**). A general Hebbian algorithm (gha) layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
+The proposed network is a reservoir computing model structurally inspired by the human cerebellum. Inputs from the cerebral cortex are fed through a intermediary layer into the reservoir via **mossy fibers** and to the output cells (**projection neurons**). A **general Hebbian algorithm (gha)** layer is used as an intermediary step to decorrelate the input information before it is redirected to the reservoir. 
 
 The reservoir consists of randomly and recurrently connected neurons. It emulates the recurrent connectivity between **granule cells** (excitatory) and **golgi cells** (inhibitory), which is able to exhibit strong non-linear dynamics.
 
-The activity of the reservoir is read out by a layer of **purkinje cells**, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model's output, on which basis the error is calculated. Based on the error feedback from the **inferior olive cells**, synaptic weights are adjusted between the reservoir and the Purkinje layer. The Purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.  
+The activity of the reservoir is read out by a layer of **purkinje cells**, which in turn inhibit the projection neurons (dentate nucleus neurons). The projection neurons firing rate functions as the model's output, on which basis the error is calculated. Based on the error feedback from the **inferior olive cells**, synaptic weights are adjusted between the reservoir and the purkinje layer. The purkinje cells, inferior olive cells and the projection neurons consist each of one neuron for the x and y coordinates.  
 
 ![**Figure 1:** Structure of the model.](img/cb_model.png)
 
@@ -25,7 +25,7 @@ The activity of the reservoir is read out by a layer of **purkinje cells**, whic
 The model is trained to predict the next position of the hand of a 2d arm ($x_{t+1}$, $y_{t+1}$) based on the current position ($x_{t}$, $y_{t}$), the previous movement ($\Delta x = x_{t} - x_{t-1}$; $\Delta y = y_{t} - y_{t-1}$),  and a movement command in form of change of the two joint angles ($\Delta\Theta_1$ and $\Delta\Theta_2$ ). The base of the arm is situated at the coordinate origin. 
 
 
-![**Figure 2:** 2D arm model with Inputs.](img/arm_model.png){width=80%}
+![**Figure 2:** 2D arm model with Inputs.](img/arm_model.png){width=60%}
  
  \
 **Example Circle drawn by 2D Arm**
@@ -45,17 +45,17 @@ The inputs correspond to positions on the target circle and not to predictions o
 
 The error is calculated as a normalized mean-square error (MSE) based on the difference between the predicted position ($x_{t+1}$, $y_{t+1}$) and the target ($x_{target}$, $y_{target}$). 
 
-Training is done using 25.000 circles, with 8 predictions/steps each. Each training circle differentiates in the position of the center of the circle, its radius, as well as the starting position of the hand in the circle. Each movement per timestep step is set to a movement of the hand of a constant 43 degrees. Thus each circle needs 8 steps for a complete circumnavigation. 
+Training is done using 25.000 circles, with 8 predictions/steps each. Each training circle differs in the position of the center of the circle, its radius, as well as the starting position of the effector on the circle. Each step the effector moves 43 degrees through the circle. Thus each circle needs 8 steps for a complete circumnavigation. 
 
 
 ## Equations
 
 ### Neurons
 
-The firing rate of the input neurons is set to the desired input. There were six input neurons representing each of the six different input (x,y, $\Delta\Theta_1$, $\Delta\Theta_2$, $\Delta x$, $\Delta y$).
+The firing rate of the input neurons is set in python. There were six input neurons representing each of the six different input features (x,y, $\Delta\Theta_1$, $\Delta\Theta_2$, $\Delta x$, $\Delta y$).
 
 
-The neurons of the gha, input and Purkinje cells use a static model which can be described with the following equation:
+The neurons of the gha, input and purkinje cells use a static model which can be described with the following equation:
 
 $$
 \begin{aligned}r_{j} = \sum^i w_{ij}\, r_i \\\end{aligned}
@@ -65,7 +65,7 @@ $w_{ij}$ represents the weigths between the current layer and the previous layer
 
 In the case of the gha layer, the weights are pre-trained with the generalized hebbian algorithm (see next section) and updated throughout the training.
 
-The weights of the Purkinje cell layer are initialized according to a normal distribution ($\mu = 0$ and $\sigma = 0.1$) and updated each step during training, using a modified delta learning rule. 
+The weights of the purkinje cell layer are initialized according to a normal distribution ($\mu = 0$ and $\sigma = 0.1$) and updated each step during training, using a modified delta learning rule. 
 
 The reservoir neurons ($N$ = 400) have a membrane potential that follows a first-order ODE:
 
@@ -79,7 +79,7 @@ $$
 r_j(t) = \text{tanh}(x_j(t))
 $$
 
-$\tau = 10$ ensure relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
+$\tau = 10$ ensures relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos.The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
 
 The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{g} {\sqrt(N)} = \dfrac{1} {\sqrt(400)}$ .
 
