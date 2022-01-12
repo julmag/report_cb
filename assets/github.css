@@ -809,7 +809,7 @@
   background-color: #fff;
 }
 
-.markdown-body video.center {
+.markdown-body video {
   display: block;
   margin-left: auto;
   margin-right: auto;

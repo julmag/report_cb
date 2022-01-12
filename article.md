@@ -146,7 +146,7 @@ As can be seen in Fig. 5, the training MSE decreases rapidly during training rea
 The following video illustrates how the model performance progresses through training. The quick improvement in the ability to predict the future state can be seen in the closing margin between the target circle (red) and the model predictions (blue). (Note: Control Level:0001 in the title is to be ignored.) 
 
 
-<video class="center" controls width=60%>
+<video controls width=60%>
     <source src="./videos/training/training_circles_0-25000.mp4"
             type="video/mp4">
 </video>
@@ -164,7 +164,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.2**
 
-<video class="center" controls width=60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.2.mp4"
             type="video/mp4">
 </video>
@@ -174,7 +174,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.5**
 
-<video class="center" controls width=60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.5.mp4"
             type="video/mp4">
 </video>
@@ -183,7 +183,7 @@ With growing control over the movement the visual display gets less erratic and 
 
 **Control level 0.7**
 
-<video class="center" controls width=60%>
+<video controls width=60%>
     <source src="./videos/test_only_ac_to_vd/test_video_cl_0.7.mp4"
             type="video/mp4">
 </video>
