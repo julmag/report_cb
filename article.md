@@ -58,7 +58,7 @@ In the case of the gha layer, the weights are pre-trained with the generalized h
 
 The weights of the Purkinje cell layer are initialized according to a normal distribution ($\mu = 0$ and $\sigma = 0.1$) and updated each step during training, using a modified delta learning rule. 
 
-The reservoir neurons have a membrane potential that follows a first-order ODE:
+The reservoir neurons ($N$ = 400) have a membrane potential that follows a first-order ODE:
 
 $$
     \tau \, \frac{dx_j(t)}{dt} + x_j(t)= \sum_i w^{in}_{ij} \, r^{in}_i(t) + g \, \sum_{i \neq j} w^{rec}_{ij} \, r_i(t)
@@ -72,7 +72,7 @@ $$
 
 $\tau = 10$ ensure relatively fast dynamics in the reservoir and the scaling factor $g = 1$ characterizes the strength of the recurrent connections in the reservoir at the lower edge of chaos, a base prequesite for an Echo State Reservoir. The weights $w^{in}$ are set using a random uniform distribution between the $min=-0.5$ and the $max=0.5$, while $r^{in}$ is given by the firing rate of the gha pre-neuron.
 
-The recurrent connections $w^{rec}$ are initialized using **TODO**.
+The recurrent connections in the reservoir $w^{rec}$ are initialized using using a normal distribution with mean 0 and a deviation of $\dfrac{g} {\sqrt(N)} = \dfrac{1} {\sqrt(400)}$ .
 
 
 The firing rate of the inferior olive neurons which feed the error feedback to the Purkinje cells is calculated and set in Python at each step. 
@@ -90,7 +90,7 @@ The projection neurons receive a copy of the input from the mossy fibers and inp
 
 During training, learning only occurs at the synapses between the reservoir and the Purkinje cells, as well as at the gha layer. 
 
-The synapses between the input layer and the gha layer are updated using the Sanger's Rule aka the Generalized Hebbian Algorithm (GHA). The purpose of using a GHA is to decorrelate the inputs and to relay a clearer input signal to the reservoir. 
+The synapses between the input layer and the gha layer are updated using the Sanger's Rule aka the Generalized Hebbian Algorithm (GHA). The GHA is a Hebbian learning based iterative and unsupervised process to compute a  Principal Compnent Analysis. In this model it was use to decorrelate the inputs and to relay a clearer input signal to the reservoir. 
 
 The GHA was implemented in its matrix form using the following equation:
 
@@ -98,7 +98,8 @@ $$
 \Delta w(t) =  \eta \, \bigg(y_{(t)} \, x_{(t)}^T - LT[y_{(t)} \, y_{(t)}^T] \, w_{(t)}\bigg) 
 $$
 
-**TODO: a bit more explanations, LT and so on. Does the learning rate depend on time?**
+$w_t$ is a matrix representing the synaptic weights. $\eta$ the learning rate was set to $0.1$. (See [Sanger, 1989](https://www.sciencedirect.com/science/article/abs/pii/0893608089900440); Function 3). The LT function sets all the matrix entries of the $[y_{(t)} \, y_{(t)}^T]$ matrix to zero. 
+
 
 In reservoir computing, learning is based on the weight adjustment between the reservoir layer and the output layer, here the Purkinje cell layer. 
 Weights are adjusted with a modified delta learning algorithm:
